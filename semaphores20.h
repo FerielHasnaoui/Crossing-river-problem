@@ -79,9 +79,9 @@ int g=semop(semid, &op,1);
 if(g == -1) perror("semop");
 return g;}
 
-//Fonction RowBoat
+//RowBoat function
 void RowBoat(void){
-printf("Le bateau a demarré !\n");}
+printf("the boat sailed!\n");}
 /******************/
 
 //Barrier function
