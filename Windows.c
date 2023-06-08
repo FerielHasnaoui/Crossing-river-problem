@@ -29,27 +29,27 @@ if ((sd-> Windows)==4){
 for(int i=0;i<3;i++) {V(semid,1);}
 sd-> Windows =0;
 IsCaptain=true;
-printf("Je suis un Windows et capitaine de ce bateau. Mon ID est %d.\n", getpid());}
+printf("I am a Windows and captain of this boat. My ID is %d.\n", getpid());}
 else if(((sd-> Windows) == 2) && ((sd-> Hackers) >=2))
 {V(semid,1); V(semid, 0); V(semid, 0);
 sd-> Hackers =(sd-> Hackers)-2;
 sd-> Windows =0;
 IsCaptain=true;
-printf("Je suis un Windows et capitaine de ce bateau. Mon ID est %d.\n",getpid());}
+printf("I am a Windows and captain of this boat. My ID is %d.\n",getpid());}
 else {
-printf("je suis le Windows numero %d de pid %d. J'attend l'arrivé des autres…\n", sd-> Windows, getpid());
+printf("I am Windows number %d from pid %d. I await the arrival of the others...\n", sd-> Windows, getpid());
 V(semid, 2); Ptimed(semid,1); }
 /* P(semid,0);}*/
-/*Solution2 qst8
+/*2nd Solution (qst8)
 void time_out()
-{ printf(“le voyage est annulé!\n”);
+{ printf(“the trip is cancelled!\n”);
 sd->Windows=(sd-> Windows)-1 ;
 exit(0) ;}
 signal(SIGALRM,time_out);
 alarm(60);
 P(semid,1);}
 *************************/
-printf("je suis un Windows de pid %d. J'embarque sur le bateau.\n",getpid());
+printf("I am a Windows with pid %d. I board the boat.\n",getpid());
 /*Handler*/
 void handler()
 {if(IsCaptain==true)
