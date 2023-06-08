@@ -9,30 +9,30 @@
 #include<time.h>
 #include<signal.h>
 #include<string.h>
-//structure de données partagées 
+//shared data structure 
 typedef struct data{int cpt, Hackers, Windows;}sdata;
 
-//creation des sémaphores 
+//Semaphores creation
 int semcreate(key_t key, int N){
 int semid= semget(key, N, IPC_CREAT | IPC_EXCL|0666);
 printf("semid= %d\n", semid);
 if (semid == -1){ perror("semget :");
 semid= semget(key, N, 0);
-printf("un group de sémaphores existe déja pour cette clé et son id est %d\n", semid); }
-else {printf("Un nouveau group de semaphores à été créee et son id est %d\n", semid); }
+printf("a semaphore group already exists for this key and its id is %d\n", semid); }
+else {printf("A new semaphore group has been created and its id is %d\n", semid); }
 return semid;
 }
 
-//suppression des sémaphores 
+//Semaphore removal 
 int semdestroy(int semid){
 int d=semctl(semid,0, IPC_RMID);
-printf("le sémaphore a ete détruit");
+printf("the semaphore was destroyed");
 return d;}
 
-//Initialisation des sémaphores
+//Initialization of the semaphores
 int seminit(int idsem, char semname[6], int semnum, int initval){
 int r=semctl(idsem, semnum, SETVAL, initval);
-printf("le semaphore %s a été initialisé avec %d\n",semname, initval);
+printf("Semaphore %s was initialized with %d\n",semname, initval);
 r=initval;
 return r;}
 int P(int semid, int sem){
@@ -44,7 +44,7 @@ int g =semop(semid, &op, 1);
 if(g== -1) perror("semop");
 return g;}
 
-//Fonction Ptimed (qst8)
+// Ptimed Function(qst8)
 int semtimedop(int semid, struct sembuf *sops, unsigned nsops, struct timespec *timeout);
 int Ptimed(int semid, int sem)
 {
@@ -56,7 +56,7 @@ struct timespec time;
 time.tv_sec = 60;
 time.tv_nsec = 100;
 int g =semtimedop(semid, &op, 1, &time);
-if(g== -1) {printf("Voyage annule\n");exit(0);}
+if(g== -1) {printf("Trip canceled\n");exit(0);}
 return g;}
 /*********************/
 
@@ -84,7 +84,7 @@ void RowBoat(void){
 printf("Le bateau a demarré !\n");}
 /******************/
 
-//Fonction Barriere
+//Barrier function
 void Barriere(int N, int shmid, int semid){
 int i;
 sdata * sd=NULL;
