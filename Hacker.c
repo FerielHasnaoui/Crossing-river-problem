@@ -12,8 +12,8 @@
 #include "semaphores20.h"
 int main(void){
 bool IsCaptain=false;
-key_t key=ftok("/home/TP1", 'c');
-key_t key2=ftok("/home/TP1", '3');
+key_t key=ftok("/home", 'c');
+key_t key2=ftok("/home", '3');
 int semid=semget(key,2,0);
 if(semid== -1) {perror("semget\n"); }
 P(semid, 2);
@@ -29,27 +29,27 @@ if ((sd->Hackers)==4){
 for(int i=0;i<3;i++) {V(semid,0); }
 sd->Hackers=0;
 IsCaptain=true;
-printf("Je suis un Hacker et capitaine de ce bateau. Mon ID est %d.\n", getpid());}
+printf("I am a Hacker and captain of this boat. My ID is %d.\n", getpid());}
 else if(((sd->Hackers) == 2) && ((sd->Windows) >=2))
 {V(semid,0); V(semid, 1); V(semid, 1);
 sd->Windows=(sd->Windows)-2;
 sd->Hackers=0;
 IsCaptain=true;
-printf("Je suis un Hacker et capitaine de ce bateau. Mon ID est %d.\n",getpid());}
+printf("I am a Hacker and captain of this boat. My ID is %d.\n",getpid());}
 else {
-printf("je suis le Hacker numero %d de pid %d. J'attend l'arrivé des autres…\n",sd->Hackers, getpid());
+printf("I am Hacker number %d of pid %d. I await the arrival of the others...\n",sd->Hackers, getpid());
 V(semid,2); Ptimed(semid,0);}
 /* P(semid,0);}*/
-/*Solution2 qst8
+/*2nd Solution (qst8)
 void time_out()
-{ printf(“le voyage est annulé!\n”);
+{ printf(“the trip is cancelled!\n”);
 sd->Hackers=(sd->Hackers)-1 ;
 exit(0) ;}
 signal(SIGALRM,time_out);
 alarm(60);
 P(semid,0);}
 *************************/
-printf("je suis un Hacker de pid %d. J'embarque sur le bateau.\n",getpid());
+printf("I am a Hacker with pid %d. I board the boat.\n",getpid());
 /*Handler*/
 void handler()
 {if(IsCaptain==true)
