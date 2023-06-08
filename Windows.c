@@ -12,8 +12,8 @@
 #include "semaphores20.h"
 int main(void){
 bool IsCaptain=false;
-key_t key=ftok("/home/TP1", 'c');
-key_t key2=ftok("/home/TP1", '3');
+key_t key=ftok("/home", 'c');
+key_t key2=ftok("/home", '3');
 int semid=semget(key,2,0);
 if(semid== -1) {perror("semget\n"); }
 P(semid, 2);
